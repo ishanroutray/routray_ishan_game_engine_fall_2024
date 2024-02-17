@@ -34,6 +34,7 @@ class Game:
     def new(self):
         print("create new game...")
         self.all_sprites = pg.sprite.Group()
+        self.coins = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         # self.player1 = Player(self, 1, 1)
         # for x in range(10, 20):
@@ -46,6 +47,8 @@ class Game:
                     print("a wall at", row, col)
                     Wall(self, col, row)
                 if tile == 'P':
+                    self.player = Player(self, col, row)
+                if tile == 'C':
                     self.player = Player(self, col, row)
 
     def run(self):
