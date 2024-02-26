@@ -61,11 +61,12 @@ class Player(pg.sprite.Sprite):
                     self.y = hits[0].rect.bottom
                 self.vy = 0
                 self.rect.y = self.y
-            def collide_with_coins(self):
-                hits = pg.sprite.spritecollide(self, self.game.coins, True)
-                if  hits:
-                    return True
-
+    
+    def collide_with_group(self, group, kill):
+        hits = pg.sprite.spritecollide(self, group, kill)
+        if hits:
+            if str(hits[0].__class__.__name__) == "Coin":
+                self.moneybag += 1
 
     def update(self):
         self.get_keys()
@@ -77,9 +78,12 @@ class Player(pg.sprite.Sprite):
         self.rect.y = self.y
         # add collision later
         self.collide_with_walls('y')
-        if self.collide_with_coins():
-            self.moneybag += 1
-
+        self.collide_with_group(self.game.coins, True)
+          
+        # coin_hits = pg.sprite.spritecollide(self.game.coins, True)
+        # if coin_hits:
+        #     print("I got a coin")
+       
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -106,3 +110,5 @@ class Coin(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+        
+
