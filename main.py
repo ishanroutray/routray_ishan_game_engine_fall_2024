@@ -1,5 +1,6 @@
 # This file was created by: ishan routray
-# we import libraries and modules
+
+# import libraries and modules
 import pygame as pg
 from settings import *
 from sprites import *
@@ -8,9 +9,9 @@ import sys
 from os import path
 
 
-# Define game class
+# Define game class...
 class Game:
-    # Define a special method to init the properties of said class
+    # Define a special method to init the properties of said class...
     def __init__(self):
         # init pygame
         pg.init()
@@ -19,23 +20,26 @@ class Game:
         pg.display.set_caption(TITLE)
         # setting game clock 
         self.clock = pg.time.Clock()
-         # setting game clock
         self.load_data()
     def load_data(self):
-         # set size of screen and be the screen
         game_folder = path.dirname(__file__)
         self.map_data = []
+        '''
+        The with statement is a context manager in Python. 
+        It is used to ensure that a resource is properly closed or released 
+        after it is used. This can help to prevent errors and leaks.
+        '''
         with open(path.join(game_folder, 'map.txt'), 'rt') as f:
             for line in f:
                 print(line)
                 self.map_data.append(line)
 
-    # Create run method which runs the game
+    # Create run method which runs the whole GAME
     def new(self):
         print("create new game...")
         self.all_sprites = pg.sprite.Group()
-        self.coins = pg.sprite.Group()
         self.walls = pg.sprite.Group()
+        self.coins = pg.sprite.Group()
         # self.player1 = Player(self, 1, 1)
         # for x in range(10, 20):
         #     Wall(self, x, 5)
@@ -49,10 +53,10 @@ class Game:
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'C':
-                    self.player = Player(self, col, row)
+                    Coin(self, col, row)
 
     def run(self):
-          #we used def here to definie the new thing we are doing here below
+        # 
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
@@ -68,17 +72,22 @@ class Game:
     
     def draw_grid(self):
          for x in range(0, WIDTH, TILESIZE):
-                 # we are creating our grid here
               pg.draw.line(self.screen, LIGHTGREY, (x, 0), (x, HEIGHT))
-                #making dimentions for x axis
          for y in range(0, HEIGHT, TILESIZE):
-              
               pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
-
+    def draw_text(self, surface, text, size, color, x, y):
+        font_name = pg.font.match_font('arial')
+        font = pg.font.Font(font_name, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.topleft = (x*TILESIZE,y*TILESIZE)
+        surface.blit(text_surface, text_rect)
     def draw(self):
             self.screen.fill(BGCOLOR)
             self.draw_grid()
             self.all_sprites.draw(self.screen)
+            self.draw_text(self.screen, str(self.player.moneybag), 64, WHITE, 1, 1)
+
             pg.display.flip()
 
     def events(self):
