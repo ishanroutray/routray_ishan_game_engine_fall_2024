@@ -79,7 +79,9 @@ class Game:
         self.all_sprites.draw(self.screen)
         self.draw_text(self.screen, "Coins " + str(self.player1.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
         pg.display.update()
-        pg.display.flip()
+        def pov():
+            self.draw_text(self.screen, "Lives " + str(self.pov.health), 24, WHITE, 2, 3)
+            pg.display.flip()
 
     # Runs our game
     def run(self):
@@ -96,8 +98,10 @@ class Game:
         sys.exit()
 
     def update(self):
-        # Update sprites
-        self.all_sprites.update()
+      # Update sprites
+            self.all_sprites.update()
+            self.player1.update()
+
 
     def draw_grid(self):
         # Vertical lines
@@ -146,3 +150,12 @@ while True:
     g.run()
     # g.show_go_screen()
 g.run()
+
+def collide_with_group(self, group, kill):
+        hits = pg.sprite.spritecollide(self, group, kill)
+        if hits:
+            if str(hits[0].__class__.__name__) == "Coin":
+                self.moneybag += 1
+ 
+            if str(hits[0].__class__.__name__) == "PowerUp":
+                print ("You just got Powered Up!")
