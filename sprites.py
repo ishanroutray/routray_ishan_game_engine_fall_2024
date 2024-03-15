@@ -4,7 +4,32 @@
 # Import libraries/settings
 import pygame as pg
 from settings import *
+vec =pg.math.Vector2
 
+import random 
+
+
+
+def collide_with_walls(sprite, group, dir):
+    if dir == 'x':
+        hits = pg.sprite.spritecollide(sprite, group, False)
+        if hits:
+            if hits[0].rect.centerx > sprite.rect.centerx:
+                sprite.pos.x = hits[0].rect.left - sprite.rect.width / 2
+            if hits[0].rect.centerx < sprite.rect.centerx:
+                sprite.pos.x = hits[0].rect.right + sprite.rect.width / 2
+            sprite.vel.x = 0
+            sprite.rect.centerx = sprite.pos.x
+    if dir == 'y':
+        hits = pg.sprite.spritecollide(sprite, group, False)
+        if hits:
+            if hits[0].rect.centery > sprite.rect.centery:
+                sprite.pos.y = hits[0].rect.top - sprite.rect.height / 2
+            if hits[0].rect.centery < sprite.rect.centery:
+                sprite.pos.y = hits[0].rect.bottom + sprite.rect.height / 2
+            sprite.vel.y = 0
+            sprite.rect.centery = sprite.pos.y
+# Player Sprite -- inherits from pygame Sprite class
 class Player(pg.sprite.Sprite):
     # Init Player
     def __init__(self, game, x, y):
@@ -19,7 +44,15 @@ class Player(pg.sprite.Sprite):
         self.image.fill(GREEN)
         # Rectangular area of player
         self.rect = self.image.get_rect()
-        self.vx, self.vy = 0, 0
+
+        self.health = 10
+
+
+
+        self.speed = 300
+        self.hitpoints = 100
+
+        self.vx, vy = 0, 0
         self.x = x * TILESIZE
         self.y = y * TILESIZE
 

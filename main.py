@@ -13,6 +13,7 @@ from random import randint
 from sprites import *
 import sys
 from os import path
+import random
 
 # Creating the game class
 class Game:
@@ -148,7 +149,7 @@ class Game:
         self.wait_for_key()
             # made loss screen
     def show_loss_screen(self):
-        # made funny insults ;)
+        # made funny insults
         myinsults = ["u suck", "traaaashhhh", "wyd?", "wanna start trying fr"]
 
         # fills the background color
