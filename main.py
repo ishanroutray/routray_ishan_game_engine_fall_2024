@@ -1,8 +1,9 @@
 # This file was created by ishan routray
 '''
-health bar
-coin bar
-moving enemies
+health bar (working on adding a second enemy so i can work on my health)
+coin bar/coin counter - DONE
+moving enemies - DONE
+create start screen
 '''
 
 # Import modules
@@ -78,10 +79,10 @@ class Game:
         self.draw_grid()
         self.all_sprites.draw(self.screen)
         self.draw_text(self.screen, "Coins " + str(self.player1.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
+        
+        self.draw_text(self.screen, "Lives " + str(self.player1.health), 24, WHITE,WIDTH/2 -  32, 20)
         pg.display.update()
-        def pov():
-            self.draw_text(self.screen, "Lives " + str(self.pov.health), 24, WHITE, 2, 3)
-            pg.display.flip()
+        pg.display.flip()
 
     # Runs our game
     def run(self):
@@ -140,15 +141,44 @@ class Game:
             #         # Move up
             #         case pg.K_w | pg.K_UP:
             #             self.player1.move(dy=-1)
+    def show_start_screen(self):
+        self.screen.fill(BGCOLOR)
+        self.draw_text(self.screen, "Welcome to the best game ever!", 24, WHITE, WIDTH/2 - 32, 2)
+        pg.display.flip()
+        self.wait_for_key()
+            # made loss screen
+    def show_loss_screen(self):
+        # made funny insults ;)
+        myinsults = ["u suck", "traaaashhhh", "wyd?", "wanna start trying fr"]
+
+        # fills the background color
+        self.screen.fill(BGCOLOR)
+        # draws text on the background
+        # Adds random insult when you die
+        self.draw_text(self.screen, random.choice(myinsults).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
+        # runs the game over method and opens the menu without closing it
+        pg.display.flip()
+        self.game_over()
+
+    def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    waiting = False
+                    self.quit()
+                if event.type == pg.KEYUP:
+                    waiting = False
 
 # Create a new game
 g = Game()
 # Run the game
-# g.show_start_screen()
+g.show_start_screen()
 while True:
     g.new()
     g.run()
-    # g.show_go_screen()
+g.show_go_screen()
 g.run()
 
 def collide_with_group(self, group, kill):

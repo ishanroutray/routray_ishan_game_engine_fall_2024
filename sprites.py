@@ -5,6 +5,7 @@
 import pygame as pg
 from settings import *
 vec =pg.math.Vector2
+import random 
 
 def collide_with_walls(sprite, group, dir):
     if dir == 'x':
@@ -40,7 +41,7 @@ class Player(pg.sprite.Sprite):
         self.image.fill(GREEN)
         # Rectangular area of player
         self.rect = self.image.get_rect()
-
+        self.health = 10
         self.speed = 300
         self.hitpoints = 100
 
