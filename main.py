@@ -2,8 +2,7 @@
 '''
 health bar (working on adding a second enemy so i can work on my health)
 coin bar/coin counter - DONE
-moving enemies - DONE
-create start screen
+insult generator when i die - DONE
 '''
 
 # Import modules
@@ -144,12 +143,11 @@ class Game:
             #             self.player1.move(dy=-1)
     def show_start_screen(self):
         self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, "Welcome to the best game ever!", 24, WHITE, WIDTH/2 - 32, 2)
+        self.draw_text(self.screen, "The best game!", 24, WHITE, WIDTH/2 - 32, 2)
         pg.display.flip()
         self.wait_for_key()
             # made loss screen
     def show_loss_screen(self):
-        # made funny insults
         myinsults = ["u suck", "traaaashhhh", "wyd?", "wanna start trying fr"]
 
         # fills the background color
