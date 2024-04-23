@@ -1,6 +1,22 @@
 # This file was created by: ishan 
 # Added this comment to prove that github is listening to my conversations
 # import libraries and modules
+<<<<<<< HEAD
+'''
+Beta Goals:
+create levels for the game
+health bar so i dont die :)
+slow down power up
+a screen that throws a pool of insults at me
+end screen
+start screen
+*working on shooting implementation
+*working on creating a boss implementation
+
+Release version: 
+
+'''
+=======
 '''
 create levels for the game
 health bar so i dont die :)
@@ -11,6 +27,7 @@ start screen
 *working on shooting implementation
 *working on creating a boss implementation
 '''
+>>>>>>> 7e2e32d13f6ac693f941e9c53ea54e897ee600eb
 import pygame as pg
 from settings import *
 from sprites import *
@@ -65,6 +82,10 @@ class Game:
         self.mob2_img = pg.image.load(path.join(self.img_folder, 'python.png')).convert_alpha()
         # Initializing an empty list for map data
         self.map_data = []
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7e2e32d13f6ac693f941e9c53ea54e897ee600eb
         '''
         The with statement is a context manager in Python. 
         It is used to ensure that a resource is properly closed or released 
@@ -290,4 +311,8 @@ while True:
     g.new()
     # run the game
     g.run()
+<<<<<<< HEAD
+    # g.show_go_screen()    
+=======
     # g.show_go_screen()
+>>>>>>> 7e2e32d13f6ac693f941e9c53ea54e897ee600eb
