@@ -1,33 +1,12 @@
-# This file was created by: ishan 
-# Added this comment to prove that github is listening to my conversations
-# import libraries and modules
-<<<<<<< HEAD
+# This file was created by ishan routray
 '''
-Beta Goals:
-create levels for the game
-health bar so i dont die :)
-slow down power up
-a screen that throws a pool of insults at me
-end screen
-start screen
-*working on shooting implementation
-*working on creating a boss implementation
+health bar (working on adding a second enemy so i can work on my health)
+coin bar/coin counter - DONE
+moving enemies - DONE
+create start screen
+'''
 
-Release version: 
-
-'''
-=======
-'''
-create levels for the game
-health bar so i dont die :)
-slow down power up
-a screen that throws a pool of insults at me
-end screen
-start screen
-*working on shooting implementation
-*working on creating a boss implementation
-'''
->>>>>>> 7e2e32d13f6ac693f941e9c53ea54e897ee600eb
+# Import modules
 import pygame as pg
 from settings import *
 from sprites import *
@@ -82,10 +61,16 @@ class Game:
         self.mob2_img = pg.image.load(path.join(self.img_folder, 'python.png')).convert_alpha()
         # Initializing an empty list for map data
         self.map_data = []
-<<<<<<< HEAD
-
-=======
->>>>>>> 7e2e32d13f6ac693f941e9c53ea54e897ee600eb
+        # 'r'     open for reading (default)
+        # 'w'     open for writing, truncating the file first
+        # 'x'     open for exclusive creation, failing if the file already exists
+        # 'a'     open for writing, appending to the end of the file if it exists
+        # 'b'     binary mode
+        # 't'     text mode (default)
+        # '+'     open a disk file for updating (reading and writing)
+        # 'U'     universal newlines mode (deprecated)
+        # below opens file for reading in text mode
+        # with 
         '''
         The with statement is a context manager in Python. 
         It is used to ensure that a resource is properly closed or released 
@@ -311,8 +296,74 @@ while True:
     g.new()
     # run the game
     g.run()
-<<<<<<< HEAD
-    # g.show_go_screen()    
-=======
-    # g.show_go_screen()
->>>>>>> 7e2e32d13f6ac693f941e9c53ea54e897ee600eb
+g.show_go_screen()
+g.run()
+
+def collide_with_group(self, group, kill):
+        hits = pg.sprite.spritecollide(self, group, kill)
+        if hits:
+            if str(hits[0].__class__.__name__) == "Coin":
+                self.moneybag += 1
+ 
+            if str(hits[0].__class__.__name__) == "PowerUp":
+                print ("You just got Powered Up!")
+
+
+
+
+def load_random_level(self):
+        # Select a random level from the available level files
+        level_files = ["level1.txt", "level2.txt", "level3.txt"]
+        random_level = choice(level_files)
+        game_folder = path.dirname(__file__)
+        # Reload the game with the selected level
+        self.map_data = []  # Clear existing map data
+        with open(path.join(game_folder, random_level), 'rt') as f:
+            for line in f:
+                self.map_data.append(line)
+   
+   
+        self.new()
+ 
+        def load_data(self):
+                #the following code under game_flder until self.map_data was given to us from mr CoZart fully
+         game_folder = path.dirname(__file__)
+        self.map_data = []
+       
+        r = Random()
+        level_files = ["level1.txt", "level2.txt", "level3.txt"]
+       
+        LEVEL = r.choice(level_files)
+        '''
+        The with statement is a context manager in Python.
+        It is used to ensure that a resource is properly closed or released
+        after it is used. This can help to prevent errors and leaks.
+        '''
+        with open(path.join(game_folder, LEVEL), 'rt') as f:
+            for line in f:
+                print(line)
+                self.map_data.append(line)
+       
+        def new(self):
+    #These define the groups
+        #I need to add to it (almost)everytime I add a feture that needs to be loaded in the game
+         print("create new game...")
+        self.cooldown = Timer(self)
+        self.pov = pg.sprite.Group()
+        self.all_sprites = pg.sprite.Group()
+        self.healup = pg.sprite.Group()
+        self.walls = pg.sprite.Group()
+        self.coins = pg.sprite.Group()
+        self.speed = pg.sprite.Group()
+        self.kill_wall = pg.sprite.Group()
+        self.mobs = pg.sprite.Group()
+        self.nosee_wall = pg.sprite.Group()
+        self.sprinting = pg.sprite.Group()
+        self.keys = pg.sprite.Group()
+        self.keywall = pg.sprite.Group()
+        self.lookskeywall = pg.sprite.Group()
+        self.next_level_wall = pg.sprite.Group()
+        # self.player1 = Player(self, 1, 1)
+        # for x in range(10, 20):
+        #     Wall(self, x, 5)
+        self.load_random_level
