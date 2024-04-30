@@ -1,9 +1,15 @@
 # This file was created by ishan routray
 '''
-health bar (working on adding a second enemy so i can work on my health)
+alpha : 
+
+add easier way to get coins/powerups mayabe shooting?
+implement that shooting to kill mobs
+
+beta:
+health bar () - DONE
 coin bar/coin counter - DONE
 moving enemies - DONE
-create start screen
+create start screen - DONE
 '''
 
 # Import modules
