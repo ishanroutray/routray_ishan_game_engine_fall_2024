@@ -78,14 +78,14 @@ class Player(pg.sprite.Sprite):
         if keys[pg.K_e]:
             # print("trying to shoot")
             self.pew()
-        
+
         if self.vx != 0 and self.vy != 0:
             self.vx *= 0.7071
             self.vy *= 0.7071
     def pew(self):
         p = PewPew(self.game, self.rect.x, self.rect.y)
-        # print(p.rect.x)
-        # print(p.rect.y)
+        print(p.rect.x)
+        print(p.rect.y)
 
     # def move(self, dx=0, dy=0):
     #     if not self.collide_with_walls(dx, dy):
@@ -189,8 +189,13 @@ class PewPew(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x
         self.rect.y = y
-        self.speed = 10
-        # print("I created a pew pew...")
+        self.speed = 25
+        print("I created a pew pew...")
+    def collide_with_group(self, group, kill):
+        hits = pg.sprite.spritecollide(self, group, kill)
+    def update(self):
+        self.collide_with_group(self.game.magmawall, True)
+        self.rect.x -= -self.speed
     def collide_with_group(self, group, kill):
         hits = pg.sprite.spritecollide(self, group, kill)
         # if hits:
@@ -199,6 +204,7 @@ class PewPew(pg.sprite.Sprite):
     def update(self):
         self.collide_with_group(self.game.coins, True)
         self.rect.y -= self.speed
+
         # pass
 # The Wall class represents the walls or barriers within the game environment
 class Wall(pg.sprite.Sprite):
@@ -380,6 +386,8 @@ class BossMob(pg.sprite.Sprite):
         # added
         self.speed = 150
         # self.health = MOB_HEALTH
+
+        
 
     def update(self):
         self.rot = (self.game.player.rect.center - self.pos).angle_to(vec(1, 0))
