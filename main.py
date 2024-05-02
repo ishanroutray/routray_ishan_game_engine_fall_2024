@@ -189,6 +189,11 @@ class Game:
          sys.exit()
       # This update method manages the game state and progression:
     def update(self):
+
+        hits = pg.sprite.spritecollide(self.player, self.mobs, False)
+        if hits:
+            self.game_over = True
+            self.change_level(LEVEL1)
         # Update cooldown
         # Updates self
         self.cooldown.ticking()
@@ -208,6 +213,9 @@ class Game:
               # Check if player's moneybag count exceeds 4, change level to LEVEL3
         if self.player.moneybag > 4:
             self.change_level(LEVEL3)
+
+       
+        
     # just drwaws our grid
     def draw_grid(self):
          for x in range(0, WIDTH, TILESIZE):
@@ -222,6 +230,9 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.topleft = (x,y)
         surface.blit(text_surface, text_rect)
+
+        
+
     # This draw method handles rendering elements onto the screen:
     def draw(self):
         self.screen.fill(BGCOLOR)
@@ -313,6 +324,11 @@ def collide_with_group(self, group, kill):
  
             if str(hits[0].__class__.__name__) == "PowerUp":
                 print ("You just got Powered Up!")
+            
+           
+
+
+             
 
 
 
