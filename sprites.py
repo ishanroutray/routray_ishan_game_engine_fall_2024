@@ -78,6 +78,7 @@ class Player(pg.sprite.Sprite):
         if keys[pg.K_e]:
             # print("trying to shoot")
             self.pew()
+            
 
         if self.vx != 0 and self.vy != 0:
             self.vx *= 0.7071
@@ -386,6 +387,18 @@ class BossMob(pg.sprite.Sprite):
         # added
         self.speed = 150
         # self.health = MOB_HEALTH
+
+        def teleport(self, direction):
+            self.x += TILESIZE * 2 * direction[0]
+            self.y += TILESIZE * 2 * direction[1]
+            if direction == "up":
+                self.y -= TILESIZE * 3
+            elif direction == "down":
+                self.y += TILESIZE * 3
+            elif direction == "left":
+             self.x -= TILESIZE * 3
+            elif direction == "right":
+             self.x += TILESIZE * 3
 
         
 
