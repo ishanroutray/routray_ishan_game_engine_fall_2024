@@ -190,10 +190,10 @@ class Game:
       # This update method manages the game state and progression:
     def update(self):
 
-        hits = pg.sprite.spritecollide(self.player, self.mobs, False)
-        if hits:
-            self.game_over = True
-            self.change_level(LEVEL1)
+        # hits = pg.sprite.spritecollide(self.player, self.mobs, False)
+        # if hits:
+        #     self.game_over = True
+        #     self.change_level(LEVEL1)
         # Update cooldown
         # Updates self
         self.cooldown.ticking()
@@ -389,3 +389,4 @@ def load_random_level(self):
         # for x in range(10, 20):
         #     Wall(self, x, 5)
         self.load_random_level
+        

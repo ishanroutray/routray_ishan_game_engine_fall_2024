@@ -157,6 +157,8 @@ class Player(pg.sprite.Sprite):
                 #      print("you can't hurt me")
 # The update method manages player movement, collision detection with walls
 # coins, power-ups, and mobs, as well as user input for controlling the player's actions.
+
+
     def update(self):
         self.get_keys()
         # self.power_up_cd.ticking()
@@ -328,6 +330,7 @@ class Mob(pg.sprite.Sprite):
         #     self.kill()
 
 
+
 class Mob2(pg.sprite.Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites, game.mobs
@@ -418,3 +421,36 @@ class BossMob(pg.sprite.Sprite):
         # self.rect.center = self.hit_rect.center
         # if self.health <= 0:
         #     self.kill()
+
+
+    # class Sword(pg.sprite.Sprite):
+#     def __init__(self, game, x, y):
+#         self.groups = game.all_sprites, game.weapons
+#         pg.sprite.Sprite.__init__(self, self.groups)
+#         self.game = game
+#         self.image = pg.Surface((TILESIZE/4, TILESIZE))
+#         self.image.fill(LIGHTBLUE)
+#         self.rect = self.image.get_rect()
+#         self.x = x
+#         self.y = y
+#         self.rect.x = x
+#         self.rect.y = y
+#         self.speed = 10
+#         print("I created a sword")
+#     def collide_with_group(self, group, kill):
+#         hits = pg.sprite.spritecollide(self, group, kill)
+#         if hits:
+#             if str(hits[0].__class__.__name__) == "Mob":
+#                 print("you kilt a mob!")
+#     def update(self):
+#         # self.collide_with_group(self.game.coins, True) 
+#         self.rect.x = self.game.player1.rect.x+TILESIZE
+#         self.rect.y = self.game.player1.rect.y-TILESIZE
+#         self.collide_with_group(self.game.mobs, True)
+#         if not self.game.player1.weapon_drawn:
+#             print("killed the sword")
+#             self.kill()
+#         # pass
+
+
+# working on sword shooting too (maybe put the pew in sword while having a slash)
