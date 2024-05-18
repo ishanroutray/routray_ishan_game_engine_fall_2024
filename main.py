@@ -65,6 +65,8 @@ class Game:
         self.mob_img = pg.image.load(path.join(self.img_folder, 'shrek.png')).convert_alpha()
         self.BossMob_img = pg.image.load(path.join(self.img_folder, 'panda.png')).convert_alpha()
         self.mob2_img = pg.image.load(path.join(self.img_folder, 'python.png')).convert_alpha()
+        self.drake2_img = pg.image.load(path.join(self.img_folder, 'drake2.png')).convert_alpha()
+        self.drake3_img = pg.image.load(path.join(self.img_folder, 'drake3.png')).convert_alpha()
         # Initializing an empty list for map data
         self.map_data = []
         # 'r'     open for reading (default)
@@ -127,6 +129,8 @@ class Game:
                     PowerUp(self, col, row)
                 if tile == 'M':
                     BossMob(self, col, row)
+                if tile == 't':
+                    Trap(self, col, row)
     
     # Create run method which runs the whole GAME
     def new(self):
@@ -144,6 +148,7 @@ class Game:
         self.mobs = pg.sprite.Group()
         self.pew_pews = pg.sprite.Group()
         self.power_ups = pg.sprite.Group()
+        self.Trap = pg.sprite.Group()
 
         # self.player1 = Player(self, 1, 1)
         # for x in range(10, 20):
@@ -172,6 +177,8 @@ class Game:
                     Mob(self, col, row)
                 if tile == 'M':
                     BossMob(self, col, row)
+                if tile == 'T':
+                    Trap(self, col, row)
     
     # Runs our game
     def run(self):
@@ -390,3 +397,56 @@ def load_random_level(self):
         #     Wall(self, x, 5)
         self.load_random_level
         
+
+
+
+
+class Game:
+    def __init__(self):
+        # other initialization code...
+
+        # Initialize mob counter
+        self.mob_counter = 0
+
+    # other methods...
+
+    def change_level(self, lvl):
+        self.currLvl = lvl
+        # kill all existing sprites first to save memory
+        for s in self.all_sprites:
+            s.kill()
+        # reset criteria for changing level
+        self.player.moneybag = 0
+        # reset map data list to empty
+        self.map_data = []
+        # open next level
+        with open(path.join(self.game_folder, lvl), 'rt') as f:
+            for line in f:
+                print(line)
+                self.map_data.append(line)
+        # repopulate the level with stuff
+        for row, tiles in enumerate(self.map_data):
+            print(row)
+            for col, tile in enumerate(tiles):
+                print(col)
+                if tile == '1':
+                    print("a wall at", row, col)
+                    Wall(self, col, row)
+                if tile == 'P':
+                    self.player = Player(self, col, row)
+                if tile == 'C':
+                    Coin(self, col, row)
+                if tile == 'H':
+                    HealthPowerUp(self, col, row)
+                if tile == 'S':
+                    SlowPowerUp(self, col, row)
+                if tile == 'U':
+                    PowerUp(self, col, row)
+                if tile == 'l':
+                    Mob2(self, col, row)
+                if tile == 'b':
+                    # Spawn mobs based on mob counter
+                    for _ in range(self.mob_counter + 1):
+                        Mob(self, col, row)
+        # Increment mob counter for the next wave
+        self.mob_counter += 1

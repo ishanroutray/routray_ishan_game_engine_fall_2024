@@ -169,6 +169,7 @@ class Player(pg.sprite.Sprite):
         self.rect.y = self.y
         self.collide_with_walls('y')
         self.collide_with_group(self.game.coins, True)
+        self.collide_with_group(self.game.Trap, True)
         if self.game.cooldown.cd < 1:
             self.cooling = False
         if not self.cooling:
@@ -180,6 +181,21 @@ class Player(pg.sprite.Sprite):
         #     print("I got a coin")
         # The PewPew class represents the projectile fired by the player. It initializes its position and appearance,
         # handles collision detection with other sprites, and updates its position.
+
+class Trap(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.Trap
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image = game.drake3_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+
 class PewPew(pg.sprite.Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites, game.pew_pews
@@ -194,8 +210,18 @@ class PewPew(pg.sprite.Sprite):
         self.rect.y = y
         self.speed = 25
         print("I created a pew pew...")
+
     def collide_with_group(self, group, kill):
         hits = pg.sprite.spritecollide(self, group, kill)
+
+        if str(hits[0].__class__.__name__) == "trap":
+                print(hits[0].__class__.__name__)
+                self.speed -= 10
+                #changing the player to a pained expression upon stepping on the trap
+                self.image = self.game.drake2_img
+                #update the player's rect to the new image
+                self.rect = self.image.get_rect()
+
     def update(self):
         self.collide_with_group(self.game.magmawall, True)
         self.rect.x -= -self.speed
